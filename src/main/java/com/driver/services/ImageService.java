@@ -47,11 +47,15 @@ public class ImageService {
         //String [] arr = imageRepository2.findById(id).get().getDimensions().split("X");
         Image image = imageRepository2.findById(id).get();
         String dimension = image.getDimensions();
-        int area = Integer.parseInt(dimension.substring(0, 1))*
-                Integer.parseInt(dimension.substring(2));
 
-        int givenArea = Integer.parseInt(screenDimensions.substring(0, 1))*
-                Integer.parseInt(screenDimensions.substring(2));
+        String [] arr = dimension.split("X");
+        int area = Integer.parseInt(arr[0])*
+                Integer.parseInt(arr[1]);
+
+        String [] brr = screenDimensions.split("X");
+
+        int givenArea = Integer.parseInt(brr[0])*
+                Integer.parseInt(brr[1]);
 
         if(area == 0){
             return 0;
