@@ -15,7 +15,7 @@ public class UserService {
 
     public User createUser(String username, String password){
 
-
+        return new User();//temp
     }
 
     public void deleteUser(int userId){
@@ -23,6 +23,6 @@ public class UserService {
     }
 
     public User updateUser(Integer id, String password){
-
+        return new User();//temp
     }
 }
