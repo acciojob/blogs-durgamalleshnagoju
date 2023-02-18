@@ -24,11 +24,9 @@ public class ImageService {
 
         Blog blog;
 
-        if(blogRepository2.findById(blogId).isPresent()){
-            blog = blogRepository2.findById(blogId).get();
-        } else {
-            return new Image();
-        }
+
+        blog = blogRepository2.findById(blogId).get();
+
         List<Image>imageList = blog.getImageList();
         imageList.add(image);
         blog.setImageList(imageList);
@@ -40,17 +38,13 @@ public class ImageService {
     }
 
     public void deleteImage(Integer id){
-        if(imageRepository2.existsById(id)){
-            imageRepository2.deleteById(id);
-        }
+        imageRepository2.deleteById(id);
     }
 
     public int countImagesInScreen(Integer id, String screenDimensions) {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
         int n = 0;
-        if(!imageRepository2.existsById(id)){
-            return n;
-        }
+
         String [] arr = imageRepository2.findById(id).get().getDimensions().split("X");
         int area = Integer.parseInt(arr[0])*Integer.parseInt(arr[1]);
         int givenArea = Integer.parseInt(screenDimensions.substring(0, 1))*

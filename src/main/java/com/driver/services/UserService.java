@@ -23,21 +23,16 @@ public class UserService {
 
     public void deleteUser(int userId){
 
-        if(userRepository3.findById(userId).isPresent()){
-            userRepository3.deleteById(userId);
-        }
+        userRepository3.deleteById(userId);
     }
 
     public User updateUser(Integer id, String password){
         User user;
-        if(userRepository3.findById(id).isPresent()){
-            user = userRepository3.findById(id).get();
-            user.setPassword(password);
-            userRepository3.save(user);
-        }
-        else{
-            return new User();
-        }
+
+        user = userRepository3.findById(id).get();
+        user.setPassword(password);
+        userRepository3.save(user);
+
         return user;
     }
 }
