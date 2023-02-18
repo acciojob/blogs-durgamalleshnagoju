@@ -20,6 +20,8 @@ public class User {
     private List<Blog> blogList;
 
     public User() {
+        this.firstName = "test";
+        this.lastName = "test";
     }
 
     public User(int id, String userName, String password, String firstName, String lastName) {
@@ -68,5 +70,13 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Blog> getBlogList() {
+        return blogList;
+    }
+
+    public void setBlogList(List<Blog> blogList) {
+        this.blogList = blogList;
     }
 }
