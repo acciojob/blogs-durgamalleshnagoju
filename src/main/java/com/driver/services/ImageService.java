@@ -17,22 +17,10 @@ public class ImageService {
 
     public Image addImage(Integer blogId, String description, String dimensions){
         //add an image to the blog
-        Image image = new Image();
-
-        image.setDescription(description);
-        image.setDimensions(dimensions);
-
-        Blog blog;
-
-
-        blog = blogRepository2.findById(blogId).get();
-
-        List<Image>imageList = blog.getImageList();
-        imageList.add(image);
-        blog.setImageList(imageList);
-        image.setBlog(blog);
+        Blog blog = blogRepository2.findById(blogId).get();
+        Image image = new Image(blog,description,dimensions);
+        blog.getImageList().add(image);
         blogRepository2.save(blog);
-
         return image;
 
     }
@@ -42,24 +30,26 @@ public class ImageService {
     }
 
     public int countImagesInScreen(Integer id, String screenDimensions) {
-        //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
+        String [] scrarray = screenDimensions.split("X"); //A=Length   X    B=Breadth
 
-        //String [] arr = imageRepository2.findById(id).get().getDimensions().split("X");
         Image image = imageRepository2.findById(id).get();
-        String dimension = image.getDimensions();
 
-        String [] arr = dimension.split("X");
-        int area = Integer.parseInt(arr[0])*
-                Integer.parseInt(arr[1]);
+        String imageDimensions = image.getDimensions();
+        String [] imgarray = imageDimensions.split("X");
 
-        String [] brr = screenDimensions.split("X");
+        int scrl = Integer.parseInt(scrarray[0]); //A -- > integer
+        int scrb = Integer.parseInt(scrarray[1]); //B -- > integer
 
-        int givenArea = Integer.parseInt(brr[0])*
-                Integer.parseInt(brr[1]);
+        int imgl = Integer.parseInt(imgarray[0]); //A -- > integer
+        int imgb = Integer.parseInt(imgarray[1]); //B -- > integer
 
-        if(area == 0){
-            return 0;
-        }
-        return givenArea/area;
+        return no_Images(scrl,scrb,imgl,imgb);
+
+    }
+
+    private int no_Images(int scrl, int scrb, int imgl, int imgb) {
+        int lenC = scrl/imgl; //
+        int lenB = scrb/imgb;
+        return lenC*lenB;
     }
 }
